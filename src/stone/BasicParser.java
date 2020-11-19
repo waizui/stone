@@ -16,7 +16,9 @@ public class BasicParser {
             rule().string(StringLiteral.class));
     //因式子
     Parser factor = rule().or(rule(NegativeExpr.class).sep("-").ast(primary),
-                              primary);                               
+                              primary);
+                              
+    //内部dsl风格，其实直接使用expr而不用expr0也可以
     Parser expr = expr0.expression(BinaryExpr.class, factor, operators);
     
     Parser statement0 = rule();
@@ -37,6 +39,7 @@ public class BasicParser {
 
     public BasicParser() {
         reserved.add(";");
+        //左括号无需单独添加，因为语法分析算法的原因
         reserved.add("}");
         reserved.add(Token.EOL);
         //操作符，有左和右边之分
