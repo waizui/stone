@@ -55,6 +55,7 @@ public class Lexer {
         matcher.useTransparentBounds(true).useAnchoringBounds(false);
         int pos = 0;
         int endPos = line.length();
+        //每次读取一个match，判断属于什么token
         while (pos < endPos) {
             matcher.region(pos, endPos);
             if (matcher.lookingAt()) {

@@ -144,6 +144,7 @@ public class Parser {
             else
                 throw new ParseException(t);
         }
+        //在tree里加叶子节点
         protected void find(List<ASTree> res, Token t) {
             res.add(new ASTLeaf(t));
         }
@@ -295,6 +296,8 @@ public class Parser {
         elements = p.elements;
         factory = p.factory;
     }
+    //重点，遍历字element，再递归子element的parser，找到最深一层，然后自底向上
+    //构造语法树
     public ASTree parse(Lexer lexer) throws ParseException {
         ArrayList<ASTree> results = new ArrayList<ASTree>();
         for (Element e: elements)
@@ -311,6 +314,7 @@ public class Parser {
         }
     }
     public static Parser rule() { return rule(null); }
+    //参数为ast的根节点
     public static Parser rule(Class<? extends ASTree> clazz) {
         return new Parser(clazz);
     }
@@ -346,6 +350,7 @@ public class Parser {
         elements.add(new StrToken(clazz));
         return this;
     }
+    //匹配的节点直接时是eaf
     public Parser token(String... pat) {
         elements.add(new Leaf(pat));
         return this;
@@ -354,6 +359,7 @@ public class Parser {
         elements.add(new Skip(pat));
         return this;
     }
+    //往parser加一个新的子ast
     public Parser ast(Parser p) {
         elements.add(new Tree(p));
         return this;

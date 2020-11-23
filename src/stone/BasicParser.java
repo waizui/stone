@@ -22,7 +22,8 @@ public class BasicParser {
     Parser expr = expr0.expression(BinaryExpr.class, factor, operators);
     
     Parser statement0 = rule();
-    //块
+    //块 再{后面执行paser完规则后，会在最后paser有没有“}” 如果没有一条符合
+    //就paser出错，syntax error
     Parser block = rule(BlockStmnt.class)
         .sep("{").option(statement0)
         .repeat(rule().sep(";", Token.EOL).option(statement0))

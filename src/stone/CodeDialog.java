@@ -13,6 +13,18 @@ public class CodeDialog extends Reader {
     private String buffer = null;
     private int pos = 0;
 
+    private String text;
+
+    public CodeDialog(String text)
+    {   
+        this.text=text;
+    }
+
+    public CodeDialog()
+    {
+       this(null);
+    }
+
     public int read(char[] cbuf, int off, int len) throws IOException {
         if (buffer == null) {
             String in = showDialog();
@@ -37,6 +49,7 @@ public class CodeDialog extends Reader {
     public void close() throws IOException {}
     protected String showDialog() {
         JTextArea area = new JTextArea(20, 40);
+        area.setText(text);
         JScrollPane pane = new JScrollPane(area);
         int result = JOptionPane.showOptionDialog(null, pane, "Input",
                                                   JOptionPane.OK_CANCEL_OPTION,
