@@ -1,4 +1,5 @@
 package chap6;
+import javassist.ClassPool;
 import javassist.gluonj.util.Loader;
 
 public class Runner {

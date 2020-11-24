@@ -14,15 +14,14 @@ public class CodeDialog extends Reader {
     private int pos = 0;
 
     private String text;
-
-    public CodeDialog(String text)
-    {   
+   
+    public void setText(String text)
+    {
         this.text=text;
     }
 
     public CodeDialog()
     {
-       this(null);
     }
 
     public int read(char[] cbuf, int off, int len) throws IOException {

@@ -10,7 +10,8 @@ public class ParserRunner {
         "b=1;+\r\n"+
         "}";
         
-        var dialog=new CodeDialog(text);
+        var dialog=new CodeDialog();
+        dialog.setText(text);
         Lexer l = new Lexer(dialog);
         BasicParser bp = new BasicParser();
         while (l.peek(0) != Token.EOF) {
