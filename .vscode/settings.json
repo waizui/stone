@@ -1,0 +1,11 @@
+{
+    "java.project.referencedLibraries": {
+        "include": [
+            "lib/**/*.jar"
+        ],
+        "exclude": [
+            "c:\\stone-lang\\gluonj.jar"
+        ]
+    },
+    "maven.view": "hierarchical"
+}

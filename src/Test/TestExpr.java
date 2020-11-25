@@ -10,7 +10,7 @@ public class TestExpr {
     
     public static void main(String[] args)
     {
-        var test=new testabs(){
+        testabs test=new testabs(){
             //可以运行时实现 感觉类似lambda赋值  
             @Override
             protected void testmethod() {
