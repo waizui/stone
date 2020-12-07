@@ -55,7 +55,7 @@ public class BasicParser {
         operators.add("%", 4, Operators.LEFT);
     }
     public ASTree parse(Lexer lexer) throws ParseException {
-        //从program开始parse，遍历子parser，递归parse
+        //从program开始parse，遍历子parser，递归parse 每一层递归返回就检测这层对应的那个BNF是否正确，否则语法错误
         return program.parse(lexer);
     }
 }

@@ -368,6 +368,10 @@ public class Parser {
         elements.add(new OrTree(p));
         return this;
     }
+    /** 生成一个新的子tree 并且添加到父tree里面
+    * @param p 可以生成
+    *
+    */
     public Parser maybe(Parser p) {
         Parser p2 = new Parser(p);
         p2.reset();
@@ -391,6 +395,10 @@ public class Parser {
         elements.add(new Expr(clazz, subexp, operators));
         return this;
     }
+
+    /** 往父tree的第一个节点加ortree
+     *
+     */
     public Parser insertChoice(Parser p) {
         Element e = elements.get(0);
         if (e instanceof OrTree)

@@ -16,6 +16,7 @@ public class FuncParser extends BasicParser {
     Parser postfix = rule().sep("(").maybe(args).sep(")");
 
     public FuncParser() {
+        //为什么不加左括号
         reserved.add(")");
         primary.repeat(postfix);
         simple.option(args);
