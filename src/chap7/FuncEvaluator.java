@@ -25,6 +25,12 @@ import chap6.BasicEvaluator.BlockEx;
     @Reviser public static class PrimaryEx extends PrimaryExpr {
         public PrimaryEx(List<ASTree> c) { super(c); }
         public ASTree operand() { return child(0); }
+
+        /**
+         * 返回实参序列（后缀 形如->fun( 1 ) 中的 1 就是一个Number） 后面用作可以返回数组等
+         * @param nest
+         * @return
+         */
         public Postfix postfix(int nest) {
             return (Postfix)child(numChildren() - nest - 1);
         }
@@ -32,6 +38,12 @@ import chap6.BasicEvaluator.BlockEx;
         public Object eval(Environment env) {
             return evalSubExpr(env, 0);
         }
+
+        /**
+         * 如果 postfix 返回了多个对象 就递归此求值
+         * @param env
+         * @param nest 表示env从外层数起的第几层     * @return
+         */
         public Object evalSubExpr(Environment env, int nest) {
             if (hasPostfix(nest)) {
                 Object target = evalSubExpr(env, nest + 1);
@@ -47,6 +59,13 @@ import chap6.BasicEvaluator.BlockEx;
     }
     @Reviser public static class ArgumentsEx extends Arguments {
         public ArgumentsEx(List<ASTree> c) { super(c); }
+
+        /**
+         * 变量可以是局部的 也可以是外部的，将会从最内部依次向外查找变量
+         * @param callerEnv
+         * @param value 想要被调用的函数
+         * @return
+         */
         public Object eval(Environment callerEnv, Object value) {
             if (!(value instanceof Function))
                 throw new StoneException("bad function", this);
@@ -56,6 +75,7 @@ import chap6.BasicEvaluator.BlockEx;
                 throw new StoneException("bad number of arguments", this);
             Environment newEnv = func.makeEnv();
             int num = 0;
+            //每个参数都调用，然后将值储存再newEnv里面
             for (ASTree a: this)
                 ((ParamsEx)params).eval(newEnv, num++,
                                         ((ASTreeEx)a).eval(callerEnv));
@@ -64,6 +84,7 @@ import chap6.BasicEvaluator.BlockEx;
     }
     @Reviser public static class ParamsEx extends ParameterList {
         public ParamsEx(List<ASTree> c) { super(c); }
+
         public void eval(Environment env, int index, Object value) {
             ((EnvEx)env).putNew(name(index), value);
         }

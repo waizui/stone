@@ -20,12 +20,24 @@ public class NestedEnv implements Environment {
             return v;
     }
     public void putNew(String name, Object value) { values.put(name, value); }
+
+    /**
+     * 放入一个变量到环境中，如果有就更新那个值
+     * @param name
+     * @param value
+     */
     public void put(String name, Object value) {
         Environment e = where(name);
         if (e == null)
             e = this;
         ((EnvEx)e).putNew(name, value);
     }
+
+    /**
+     * 在嵌套环境中找到变量值
+     * @param name
+     * @return
+     */
     public Environment where(String name) {
         if (values.get(name) != null)
             return this;
