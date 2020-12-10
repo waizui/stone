@@ -3,7 +3,11 @@ import java.util.HashMap;
 import chap6.Environment;
 import chap7.FuncEvaluator.EnvEx;
 
+/**
+ * 嵌套环境
+ */
 public class NestedEnv implements Environment {
+
     protected HashMap<String,Object> values;
     protected Environment outer;
     public NestedEnv() { this(null); }
@@ -34,7 +38,7 @@ public class NestedEnv implements Environment {
     }
 
     /**
-     * 在嵌套环境中找到变量值
+     * 在嵌套环境中找到变量值 TODO:加入var声明的临时变量，临时变量将会覆盖全局变量
      * @param name
      * @return
      */

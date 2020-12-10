@@ -18,6 +18,8 @@ public class FuncParser extends BasicParser {
     public FuncParser() {
         //为什么不加左括号
         reserved.add(")");
+        //添加var 关键字
+        reserved.add("var");
         primary.repeat(postfix);
         simple.option(args);
         program.insertChoice(def);

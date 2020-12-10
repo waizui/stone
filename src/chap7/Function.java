@@ -3,7 +3,8 @@ import stone.ast.BlockStmnt;
 import stone.ast.ParameterList;
 import chap6.Environment;
 
-/** 储存有blockstatment 参数 环境变量
+/** 储存有blockstatment（body） 参数 环境变量 eval时使用env
+ * 和body的eval还有parameter的eval来求值
  *
  */
 public class Function {

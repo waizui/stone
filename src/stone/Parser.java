@@ -160,7 +160,8 @@ public class Parser {
     }
 
     protected static class Skip extends Leaf {
-        protected Skip(String[] t) { super(t); }
+        protected Skip(String[] t)
+        { super(t); }
         protected void find(List<ASTree> res, Token t) {}
     }
 
