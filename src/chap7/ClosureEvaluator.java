@@ -13,7 +13,8 @@ import chap6.Environment;
 @Reviser public class ClosureEvaluator {
     @Reviser public static class FunEx extends Fun {
         public FunEx(List<ASTree> c) { super(c); }
-        public Object eval(Environment env) {
+        public Object eval(Environment env)
+        {
             return new Function(parameters(), body(), env);
         }
     }

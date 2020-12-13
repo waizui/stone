@@ -32,11 +32,17 @@ public class BasicParser {
         .sep("}");
     //简单
     Parser simple = rule(PrimaryExpr.class).ast(expr);
-    Parser statement = statement0.or(
+
+    Parser localVar=rule().sep("var").ast(expr);
+
+    Parser statement = statement0.or(localVar,
             rule(IfStmnt.class).sep("if").ast(expr).ast(block)
                                .option(rule().sep("else").ast(block)),
             rule(WhileStmnt.class).sep("while").ast(expr).ast(block),
             simple);
+
+    //声明语句中增加var 关键字
+
     Parser program = rule().or(statement, rule(NullStmnt.class))
                            .sep(";", Token.EOL);
 
@@ -45,6 +51,9 @@ public class BasicParser {
         reserved.add(";");
         //左括号无需单独添加，因为语法分析算法的原因
         reserved.add("}");
+
+        reserved.add("var");
+
         reserved.add(Token.EOL);
         //操作符，有左和右边之分
         operators.add("=", 1, Operators.RIGHT);

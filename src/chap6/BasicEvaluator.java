@@ -51,6 +51,10 @@ import java.util.List;
                 throw new StoneException("bad type for -", this);
         }
     }
+
+    /**
+     * 此处要检查是不是局部变量赋值
+     */
     @Reviser public static class BinaryEx extends BinaryExpr {
         public BinaryEx(List<ASTree> c) { super(c); }
         public Object eval(Environment env) {
