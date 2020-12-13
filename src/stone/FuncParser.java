@@ -15,13 +15,18 @@ public class FuncParser extends BasicParser {
                       .ast(expr).repeat(rule().sep(",").ast(expr));
     Parser postfix = rule().sep("(").maybe(args).sep(")");
 
+    Parser localVar=rule().sep("var").identifier(reserved).option(rule().sep("=").ast(primary)) ;
+
+
     public FuncParser() {
         //为什么不加左括号
         reserved.add(")");
-        //添加var 关键字
+        //尝试加入var
         reserved.add("var");
+
         primary.repeat(postfix);
         simple.option(args);
+        program.insertChoice(localVar);
         program.insertChoice(def);
     }
 }

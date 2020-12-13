@@ -14,7 +14,9 @@ public class BasicParser {
             rule().number(NumberLiteral.class),
             rule().identifier(Name.class, reserved),
             rule().string(StringLiteral.class));
-    //因式子
+    /**
+     * 因子 可以是负终结符 或者普通终结符
+     */
     Parser factor = rule().or(rule(NegativeExpr.class).sep("-").ast(primary),
                               primary);
                               
@@ -39,6 +41,7 @@ public class BasicParser {
                            .sep(";", Token.EOL);
 
     public BasicParser() {
+
         reserved.add(";");
         //左括号无需单独添加，因为语法分析算法的原因
         reserved.add("}");

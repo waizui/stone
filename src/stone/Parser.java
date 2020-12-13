@@ -11,6 +11,7 @@ import stone.ast.ASTLeaf;
 import stone.ast.ASTList;
 
 public class Parser {
+
     protected static abstract class Element {
         protected abstract void parse(Lexer lexer, List<ASTree> res)
             throws ParseException;
@@ -117,7 +118,8 @@ public class Parser {
 
     protected static class NumToken extends AToken {
         protected NumToken(Class<? extends ASTLeaf> type) { super(type); }
-        protected boolean test(Token t) { return t.isNumber(); }
+        protected boolean test(Token t)
+        { return t.isNumber(); }
     }
 
     protected static class StrToken extends AToken {
@@ -138,13 +140,17 @@ public class Parser {
                         find(res, t);
                         return;
                     }
-
             if (tokens.length > 0)
                 throw new ParseException(tokens[0] + " expected.", t);
             else
                 throw new ParseException(t);
         }
-        //在tree里加叶子节点
+
+        /**
+         * 把token 添加为treeleaf
+         * @param res
+         * @param t
+         */
         protected void find(List<ASTree> res, Token t) {
             res.add(new ASTLeaf(t));
         }
@@ -351,7 +357,7 @@ public class Parser {
         elements.add(new StrToken(clazz));
         return this;
     }
-    //匹配的节点直接时是eaf
+    //匹配的节点直接时是leaf
     public Parser token(String... pat) {
         elements.add(new Leaf(pat));
         return this;
@@ -379,6 +385,12 @@ public class Parser {
         elements.add(new OrTree(new Parser[] { p, p2 }));
         return this;
     }
+
+    /**
+     * 只重复一次
+     * @param p
+     * @return
+     */
     public Parser option(Parser p) {
         elements.add(new Repeat(p, true));
         return this;
@@ -397,7 +409,7 @@ public class Parser {
         return this;
     }
 
-    /** 往父tree的第一个节点加ortree
+    /**
      *
      */
     public Parser insertChoice(Parser p) {
