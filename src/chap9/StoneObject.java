@@ -10,6 +10,13 @@ public class StoneObject {
     public Object read(String member) throws AccessException {
         return getEnv(member).get(member);
     }
+
+    /**
+     * 将某一个对象放入env中
+     * @param member
+     * @param value
+     * @throws AccessException
+     */
     public void write(String member, Object value) throws AccessException {
         ((EnvEx)getEnv(member)).putNew(member, value);
     }

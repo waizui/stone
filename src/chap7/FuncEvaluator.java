@@ -27,11 +27,14 @@ import chap6.BasicEvaluator.BlockEx;
         public ASTree operand() { return child(0); }
 
         /**
-         * 返回实参序列（后缀 形如->fun( 1 ) 中的 1 就是一个Number） 后面用作可以返回数组等
+         * 返回实参序列（后缀 形如->fun( 1 ) 中的 1 就是一个Number） (或者在类型中
+         * 的 instance.new 中的new)后面用作可以返回数组等
          * @param nest
          * @return
          */
         public Postfix postfix(int nest) {
+            //反着取 比如 children是 123 那 0取出来的是3  这是因为加入的时候是321这样放进去的
+            //就是push进去了，顺序反向
             return (Postfix)child(numChildren() - nest - 1);
         }
         public boolean hasPostfix(int nest) { return numChildren() - nest > 1; } 

@@ -9,8 +9,11 @@ import chap7.FuncEvaluator;
 
 @Require(FuncEvaluator.class)
 @Reviser public class NativeEvaluator {
+
     @Reviser public static class NativeArgEx extends FuncEvaluator.ArgumentsEx {
+
         public NativeArgEx(List<ASTree> c) { super(c); }
+
         @Override public Object eval(Environment callerEnv, Object value) {
             if (!(value instanceof NativeFunction))
                 return super.eval(callerEnv, value);

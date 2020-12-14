@@ -22,6 +22,10 @@ import chap9.StoneObject.AccessException;
             return name();
         }
     }
+
+    /**
+     * 与statmnt的body没什么不同
+     */
     @Reviser public static class ClassBodyEx extends ClassBody {
         public ClassBodyEx(List<ASTree> c) { super(c); }
         public Object eval(Environment env) {
@@ -35,6 +39,7 @@ import chap9.StoneObject.AccessException;
         public Object eval(Environment env, Object value) {
             String member = name();
             if (value instanceof ClassInfo) {
+                //如果使用new关键字 那么将会新建一个对象放入当前环境中
                 if ("new".equals(member)) {
                     ClassInfo ci = (ClassInfo)value;
                     NestedEnv e = new NestedEnv(ci.environment());
@@ -44,6 +49,7 @@ import chap9.StoneObject.AccessException;
                     return so;
                 }
             }
+            //如果是已经放在环境里的stoneObject对象，则是直接取字段值
             else if (value instanceof StoneObject) {
                 try {
                     return ((StoneObject)value).read(member);
