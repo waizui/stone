@@ -18,6 +18,7 @@ import chap7.FuncEvaluator.PrimaryEx;
             int s = numChildren();
             Object[] res = new Object[s];
             int i = 0;
+            //继承了itirable
             for (ASTree t: this)
                 res[i++] = ((ASTreeEx)t).eval(env);
             return res;

@@ -1,6 +1,9 @@
 package chap11;
 import java.util.HashMap;
 
+/**
+ * 变量符号，全局变量用,用hash来保存变量对应的数组下标
+ */
 public class Symbols {
     public static class Location {
         public int nest, index;
