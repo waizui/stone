@@ -3,6 +3,9 @@ import stone.StoneException;
 import chap11.EnvOptimizer.EnvEx2;
 import chap6.Environment;
 
+/**
+ * 使用nest层数与变量编号来存取变量
+ */
 public class ArrayEnv implements Environment {
     protected Object[] values;
     protected Environment outer;

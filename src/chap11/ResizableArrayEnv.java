@@ -26,7 +26,14 @@ public class ResizableArrayEnv extends ArrayEnv {
             e = this;
         ((EnvEx2)e).putNew(name, value);
     }
+
+    /**
+     * 将变量名编号，然后放入数组中，不用算hash了，优化速度
+     * @param name
+     * @param value
+     */
     @Override public void putNew(String name, Object value) {
+
         assign(names.putNew(name), value);
     }
     @Override public Environment where(String name) {
@@ -43,6 +50,12 @@ public class ResizableArrayEnv extends ArrayEnv {
         else
             super.put(nest, index, value);
     }
+
+    /**
+     * 如果数组长度不够，就会将数组增加到两倍，然后拷贝
+     * @param index
+     * @param value
+     */
     protected void assign(int index, Object value) {
         if (index >= values.length) {
             int newLen = values.length * 2;

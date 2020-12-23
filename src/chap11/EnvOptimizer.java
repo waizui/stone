@@ -12,6 +12,7 @@ import chap7.ClosureEvaluator;
 
 @Require(ClosureEvaluator.class)
 @Reviser public class EnvOptimizer {
+
     @Reviser public static interface EnvEx2 extends Environment {
         Symbols symbols();
         void put(int nest, int index, Object value);
@@ -19,11 +20,22 @@ import chap7.ClosureEvaluator;
         void putNew(String name, Object value);
         Environment where(String name);
     }
+
     @Reviser public static abstract class ASTreeOptEx extends ASTree {
+        /**
+         *ASTree是大部分节点的父类， 对于大部分节点，lookup方法没有作用，所以空
+         * 该方法在eval之前调用，完成准备工作
+         * @param syms
+         */
         public void lookup(Symbols syms) {}
     }
     @Reviser public static class ASTListEx extends ASTList {
         public ASTListEx(List<ASTree> c) { super(c); }
+
+        /**
+         * 修改器将ASTlis的Lookup修改为依次调用子节点的Lookup方法
+         * @param syms
+         */
         public void lookup(Symbols syms) {
             for (ASTree t: this)
                 ((ASTreeOptEx)t).lookup(syms);
@@ -91,6 +103,12 @@ import chap7.ClosureEvaluator;
             nest = loc.nest;
             index = loc.index;
         }
+
+        /**
+         * 取值优化后，可以使用这个Name对象的nest层数和变量index来找到变量
+         * @param env
+         * @return
+         */
         public Object eval(Environment env) {
             if (index == UNKNOWN)
                 return env.get(name());

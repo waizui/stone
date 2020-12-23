@@ -16,6 +16,7 @@ import javassist.gluonj.*;
         @Override public Object eval(Environment env, Object value) {
             if (value instanceof OptStoneObject) {
                 OptStoneObject target = (OptStoneObject)value;
+                //如果不是同一个classinfo再更新缓存
                 if (target.classInfo() != classInfo)
                     updateCache(target);
                 if (isField)
@@ -26,6 +27,11 @@ import javassist.gluonj.*;
             else
                 return super.eval(env, value);
         }
+
+        /**
+         * 直接缓存类中i段或者方法的index
+         * @param target
+         */
         protected void updateCache(OptStoneObject target) {
             String member = name();
             classInfo = target.classInfo();

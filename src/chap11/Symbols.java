@@ -2,9 +2,10 @@ package chap11;
 import java.util.HashMap;
 
 /**
- * 变量符号，全局变量用,用hash来保存变量对应的数组下标
+ * 变量符号，每个环境的变量编号放在里面,用hash来保存变量对应的数组下标
  */
 public class Symbols {
+
     public static class Location {
         public int nest, index;
         public Location(int nest, int index) {
